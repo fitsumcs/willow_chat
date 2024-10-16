@@ -1,11 +1,8 @@
 import React from 'react';
 import { Box, IconButton } from '@mui/material';
+import { MessageInputProps } from '../interfaces/props';
 
-interface MessageInputProps {
-  message: string;
-  setMessage: (message: string) => void;
-  handleSendMessage: () => void;
-}
+
 
 const MessageInput: React.FC<MessageInputProps> = ({ message, setMessage, handleSendMessage }) => (
   <Box sx={{ display: 'flex', marginTop: '10px' }}>

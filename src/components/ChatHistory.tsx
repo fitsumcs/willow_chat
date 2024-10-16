@@ -1,12 +1,9 @@
 // components/ChatHistory.tsx
 import React from 'react';
 import { List, ListItem, ListItemText } from '@mui/material';
-import { Chat } from '../interfaces/Chat';
+import { ChatHistoryProps } from '../interfaces/props';
 
-interface ChatHistoryProps {
-  chats: Chat[];
-  onSelectChat: (chat: Chat) => void;
-}
+
 
 const ChatHistory: React.FC<ChatHistoryProps> = ({ chats, onSelectChat }) => (
   <List>

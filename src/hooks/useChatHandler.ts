@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Chat, ChatMessage } from '../interfaces/Chat';
+import { Chat, ChatMessage } from '../interfaces/type';
 import { generateBotResponse, truncateTitle } from '../helpers/ChatHelper';
 import { ChatService } from '../services/ChatService';
 import { toast } from 'react-toastify';

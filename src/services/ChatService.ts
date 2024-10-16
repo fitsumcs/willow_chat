@@ -1,5 +1,5 @@
 // services/ChatService.ts
-import { Chat } from '../interfaces/Chat';
+import { Chat } from '../interfaces/type';
 
 export class ChatService {
   static saveChatHistory(chatHistory: Chat[]): void {

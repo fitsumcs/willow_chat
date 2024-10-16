@@ -1,17 +1,9 @@
 import React from 'react';
 import { Tabs, Tab, Button } from '@mui/material';
 import ChatHistory from './ChatHistory';
-import { Chat } from '../interfaces/Chat';
+import { TabPanelProps } from '../interfaces/props';
 
-interface TabPanelProps {
-  activeTab: number;
-  setActiveTab: (tabIndex: number) => void;
-  chatHistory: Chat[];
-  savedIdeas: Chat[];
-  handleOpenChat: (chat: Chat) => void;
-  handleOpenSavedIdea: (idea: Chat) => void;
-  handleReset: () => void;
-}
+
 
 const TabPanel: React.FC<TabPanelProps> = ({ activeTab, setActiveTab, chatHistory, savedIdeas, handleOpenChat, handleOpenSavedIdea, handleReset }) => {
   return (

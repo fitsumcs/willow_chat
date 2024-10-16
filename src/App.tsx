@@ -4,7 +4,7 @@ import TabPanel from './components/TabPanel';
 import ChatWindow from './components/ChatWindow';
 import { ToastContainer, toast } from 'react-toastify';
 import { useChatHandler } from './hooks/useChatHandler';
-import { Chat } from './interfaces/Chat';
+import { Chat } from './interfaces/type';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {

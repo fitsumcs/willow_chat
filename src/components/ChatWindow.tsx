@@ -2,16 +2,9 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import ChatBox from './ChatBox';
 import MessageInput from './MessageInput';
-import { Chat, ChatMessage } from '../interfaces/Chat';
+import { ChatWindowProps } from '../interfaces/props';
 
-interface ChatWindowProps {
-  currentChat: Chat | null;
-  showChatBox: boolean;
-  handleSaveIdea: (botResponse: ChatMessage) => void;
-  message: string;
-  setMessage: (message: string) => void;
-  handleSendMessage: () => void;
-}
+
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ currentChat, showChatBox, handleSaveIdea, message, setMessage, handleSendMessage }) => {
   return (
