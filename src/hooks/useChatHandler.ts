@@ -19,7 +19,11 @@ export const useChatHandler = () => {
   }, [chatHistory, isChatOpen]);
 
   const startNewChat = () => {
-    const newChat: Chat = { id: chatHistory.length + 1, title: 'New Chat', content: [] };
+    const newChat: Chat = {
+      id: chatHistory.length + 1,
+      title: '', // Initially empty, will be set with the first message
+      content: [],
+    };
     setCurrentChat(newChat);
     setIsChatOpen(true);
     setShowChatBox(true);
@@ -29,21 +33,30 @@ export const useChatHandler = () => {
     if (message.trim()) {
       const botResponse = generateBotResponse(message);
       let updatedChatContent: ChatMessage[];
-
+  
       let newChat: Chat;
       if (!currentChat) {
         const newChatId = chatHistory.length + 1;
-        const chatTitle = truncateTitle(message);
+        const chatTitle = truncateTitle(message); // Set the title from the first message
         updatedChatContent = [{ message: `You: ${message}`, isBot: false }, { message: botResponse, isBot: true }];
-
-        newChat = { id: newChatId, title: chatTitle, content: updatedChatContent };
-
+  
+        newChat = {
+          id: newChatId,
+          title: chatTitle, // Title set here
+          content: updatedChatContent,
+        };
+  
         setChatHistory([...chatHistory, newChat]);
         ChatService.saveChatHistory([...chatHistory, newChat]);
       } else {
         updatedChatContent = [...currentChat.content, { message: `You: ${message}`, isBot: false }, { message: botResponse, isBot: true }];
         newChat = { ...currentChat, content: updatedChatContent };
-
+  
+        // Update title if it's the first message
+        if (!currentChat.title) {
+          newChat.title = truncateTitle(message);
+        }
+  
         const chatExistsInHistory = chatHistory.some((chat) => chat.id === newChat.id);
         if (!chatExistsInHistory) {
           setChatHistory([...chatHistory, newChat]);
@@ -52,7 +65,7 @@ export const useChatHandler = () => {
         }
         ChatService.saveChatHistory(chatHistory);
       }
-
+  
       setCurrentChat(newChat);
       setMessage('');
       setIsChatOpen(true);
