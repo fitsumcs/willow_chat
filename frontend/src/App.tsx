@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Box, Button } from '@mui/material';
-import TabPanel from './components/TabPanel';
-import ChatWindow from './components/ChatWindow';
-import { ToastContainer, toast } from 'react-toastify';
-import { useChatHandler } from './hooks/useChatHandler';
-import { Chat } from './interfaces/type';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { Box, Button } from "@mui/material";
+import TabPanel from "./components/TabPanel";
+import ChatWindow from "./components/ChatWindow";
+import { ToastContainer } from "react-toastify";
+import { useChatHandler } from "./hooks/useChatHandler";
+import { Chat } from "./interfaces/type";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   const {
@@ -13,7 +13,6 @@ const App: React.FC = () => {
     savedIdeas,
     currentChat,
     message,
-    isChatOpen,
     showChatBox,
     setMessage,
     startNewChat,
@@ -40,9 +39,14 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100vh' }}>
-        <Box sx={{ width: '25%', padding: 2, backgroundColor: '#f0f0f0' }}>
-          <Button variant="contained" color="primary" onClick={startNewChat} sx={{ marginBottom: 2 }}>
+      <Box sx={{ display: "flex", height: "100vh" }}>
+        <Box sx={{ width: "25%", padding: 2, backgroundColor: "#f0f0f0" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={startNewChat}
+            sx={{ marginBottom: 2 }}
+          >
             New Chat
           </Button>
 
