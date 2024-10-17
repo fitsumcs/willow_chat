@@ -1,60 +1,72 @@
-from flask import Blueprint, request, jsonify
-from app import db
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 from models import Idea, History
+from database import get_db
 import openai
-import os
+from config import settings
+import random
 
-api_bp = Blueprint('api', __name__)
+router = APIRouter()
 
-# Save an idea
-@api_bp.route('/api/ideas', methods=['POST'])
-def save_idea():
-    data = request.json
-    new_idea = Idea(title=data['title'], content=data['content'])
-    db.session.add(new_idea)
-    db.session.commit()
-    return jsonify({'message': 'Idea saved successfully!'})
+# Function to generate random words or sentences
+def generate_random_text(word_count=10):
+    """Generates random words to simulate a fallback message."""
+    words = ["apple", "banana", "computer", "flower", "mountain", "river", "sky", "cloud", "tree", "ocean"]
+    random_text = ' '.join(random.choice(words) for _ in range(word_count))
+    return f"Random response: {random_text}"
+
+# Function to generate random characters (random gibberish)
+def generate_random_gibberish(length=50):
+    """Generates a random string of characters as fallback text."""
+    letters = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters) for _ in range(length))
 
 # List all ideas
-@api_bp.route('/api/ideas', methods=['GET'])
-def list_ideas():
-    ideas = Idea.query.all()
-    idea_list = [{'id': idea.id, 'title': idea.title, 'content': idea.content} for idea in ideas]
-    return jsonify(idea_list)
+@router.get("/ideas")
+def list_ideas(db: Session = Depends(get_db)):
+    ideas = db.query(Idea).all()
+    return ideas
 
-# Save a history entry
-@api_bp.route('/api/history', methods=['POST'])
-def save_history():
-    data = request.json
-    new_history = History(conversation=data['conversation'])
-    db.session.add(new_history)
-    db.session.commit()
-    return jsonify({'message': 'History saved successfully!'})
+# Save an idea
+@router.post("/ideas")
+def save_idea(title: str, content: str, db: Session = Depends(get_db)):
+    new_idea = Idea(title=title, content=content)
+    db.add(new_idea)
+    db.commit()
+    db.refresh(new_idea)
+    return new_idea
 
-# List all history
-@api_bp.route('/api/history', methods=['GET'])
-def list_history():
-    history = History.query.all()
-    history_list = [{'id': h.id, 'conversation': h.conversation} for h in history]
-    return jsonify(history_list)
+# List history
+@router.get("/history")
+def list_history(db: Session = Depends(get_db)):
+    history = db.query(History).all()
+    return history
 
-# Communicate with the ChatGPT API
-@api_bp.route('/api/chat', methods=['POST'])
-def chat_with_gpt():
-    data = request.json
-    message = data.get('message')
+# Save a history conversation
+@router.post("/history")
+def save_history(conversation: str, db: Session = Depends(get_db)):
+    new_history = History(conversation=conversation)
+    db.add(new_history)
+    db.commit()
+    db.refresh(new_history)
+    return new_history
 
-    if not message:
-        return jsonify({'error': 'No message provided'}), 400
-
+# ChatGPT Communication with fallback to random text
+@router.post("/chat")
+def chat_with_gpt(message: str):
+    openai.api_key = settings.OPENAI_API_KEY
     try:
+        # Attempt to get a response from ChatGPT
         response = openai.Completion.create(
-            engine="gpt-3.5-turbo",
+            engine="gpt-4",
             prompt=message,
             max_tokens=150
         )
-        answer = response['choices'][0]['text'].strip()
-        return jsonify({'answer': answer})
+        answer = response.choices[0].text.strip()
+        return {"answer": answer, "source": "chatgpt"}
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        # In case of an error, generate random text as a fallback
+        fallback_text = generate_random_text()  # Generate random words as the response
+        return {"answer": fallback_text, "source": "non-chatgpt"}
+
