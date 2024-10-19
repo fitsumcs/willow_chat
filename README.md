@@ -21,11 +21,11 @@ Getting Started
     git clone https://github.com/yourusername/chatgpt-chat-app.git
     cd chatgpt-chat-app
 2.  Environment Variables
-    Create a .env file in the backend directory and add your OpenAI API key:
+    Create a <b>.env</b> file in the backend directory and add your OpenAI API key:
 
     `OPENAI_API_KEY=your_openai_api_key`
 
-In the frontend directory, create a .env file and set the backend URL:
+In the frontend directory, create a <b>.env</b> file and set the backend URL:
 
 `REACT_APP_API_URL=http://localhost:8000`
 
