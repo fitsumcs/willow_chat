@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Set the backend URL from environment variables
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const ApiService = {
   // Send message to ChatGPT backend endpoint
