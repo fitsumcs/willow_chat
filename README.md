@@ -23,7 +23,7 @@ Getting Started
 2.  Environment Variables
     Create a <b>.env</b> file in the backend directory and add your OpenAI API key:
 
-    `OPENAI_API_KEY=your_openai_api_key`
+    `OPEN_API_KEY=your_openai_api_chatgpt4_key`
 
 In the frontend directory, create a <b>.env</b> file and set the backend URL:
 
