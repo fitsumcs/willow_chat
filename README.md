@@ -17,50 +17,34 @@ Docker and Docker Compose installed on your machine.
 An OpenAI API key for GPT communication.
 Getting Started
 
-1. Clone the Repository
-   git clone https://github.com/yourusername/chatgpt-chat-app.git
-   cd chatgpt-chat-app
-2. Environment Variables
-   Create a .env file in the backend directory and add your OpenAI API key:
+1.  Clone the Repository
+    git clone https://github.com/yourusername/chatgpt-chat-app.git
+    cd chatgpt-chat-app
+2.  Environment Variables
+    Create a .env file in the backend directory and add your OpenAI API key:
 
-OPENAI_API_KEY=your_openai_api_key
+    `OPENAI_API_KEY=your_openai_api_key`
 
 In the frontend directory, create a .env file and set the backend URL:
 
-REACT_APP_API_URL=http://localhost:8000 
+`REACT_APP_API_URL=http://localhost:8000`
 
 3. Build and Run with Docker
-Build and Start Services
+   Build and Start Services
 
-docker-compose up -d 
+`docker-compose up -d`
 
 Stop and Remove Containers
 To stop and clean up all containers:
 
-docker-compose down 
+`docker-compose down`
 
 4. Access the Application
-Frontend: Open http://localhost:3000.
-Backend API: Open http://localhost:8000/docs for the interactive API documentation.
-Frontend Structure
-The frontend is a React app with the following key components:
+   - Frontend: Open http://localhost:3000.
+   - Backend API: Open http://localhost:8000/docs for the interactive API documentation.
+     Frontend Structure
+     The frontend is a React app with the following key components:
 
-Components:
-ChatBox, ChatHistory, ChatWindow, MessageInput, TabPanel
-Services:
-ApiService.ts handles communication with the backend.
-Hooks:
-useChatHandler.ts manages the chat logic.
-Helpers:
-ChatHelper.ts provides utility functions like generating bot responses.
-State Management:
-Local storage is used for managing chat history and saved ideas.
-Backend Structure
-The backend is a FastAPI app with the following components:
-
-
-
-Contributing
 Feel free to fork this repository, submit issues, or create pull requests to improve the project!
 
 License
