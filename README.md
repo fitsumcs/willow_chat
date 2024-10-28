@@ -32,7 +32,7 @@ In the frontend directory, create a <b>.env</b> file and set the backend URL:
 3. Build and Run with Docker
    Build and Start Services
 
-`docker-compose up -d`
+`docker compose up -d`
 
 Stop and Remove Containers
 To stop and clean up all containers:
